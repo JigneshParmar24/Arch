@@ -1,7 +1,6 @@
 ARCH
 
 display server -> X11(Xorg), Wayland
-display manager -> 
 desktop environments -> kde plasma, GNOME
 windows manager -> dwm, i3, hyprland
 terminal -> st, kitty, alacritty
