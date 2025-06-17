@@ -1,0 +1,6 @@
+#!/bin/sh
+
+wall=$(find ~/pic/wallpaper -type f -iname "*.jpg" -o  -iname "*.png" | shuf -n 1)
+xwallpaper --zoom $wall
+wal -c
+wal -i $wall
