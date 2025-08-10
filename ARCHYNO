@@ -1,7 +1,7 @@
 ARCH
 
 display server -> X11(Xorg), Wayland
-display manager -> 
+display manager -> ligthdm, Ly (TTY login manager)
 desktop environments -> kde plasma, GNOME
 windows manager -> dwm, i3, hyprland
 terminal -> st, kitty, alacritty
@@ -112,3 +112,62 @@ cd zscroll
 download that cava shit for audio visualizer
 ---------------------------------------------------------------------------------------
 
+kwallet - some online password manager or something
+
+exec --no-startup-id /usr/bin/kwalletd5
+
+gnoem-keyring - some online password manager or something
+
+sudo pacman -S gnome-keyring libsecret
+sudo pacman -S seahorse
+
+code .xinitrc
+# Launch GNOME Keyring Daemon
+eval "$(gnome-keyring-daemon --start)"
+export SSH_AUTH_SOCK
+export GPG_AGENT_INFO
+
+auth       optional     pam_kwallet5.so
+session    optional     pam_kwallet5.so auto_start
+
+Jpp247@@
+
+-------------------------
+scroll_spotify script updated
+#!/bin/bash
+
+/home/jpp/.local/bin/zscroll -l 30 \
+    --delay 0.1 \
+    --scroll-padding "  " \
+    --match-command "$(dirname "$0")/get_spotify_status.sh --status" \
+    --match-text "Playing" "--scroll 1" \
+    --match-text "Paused" "--scroll 0" \
+    --update-check true "$(dirname "$0")/get_spotify_status.sh" &
+
+wait
+--------------------------------------------
+light display manager -> ldm
+
+sudo pacman -S lightdm lightdm-gtk-greeter 
+sudo systemctl enable lightdm 
+sudo systemctl start lightdm
+
+sudo pacman -S lightdm-webkit2-greeter
+
+sudo nano /etc/lightdm/lightdm.conf
+[Seat:*]
+greeter-session=lightdm-webkit2-greeter
+
+yay -S lightdm-webkit2-theme-glorious
+ls /usr/share/lightdm-webkit/themes/glorious // you should see glorious inside of it
+
+sudo nano /etc/lightdm/lightdm-webkit2-greeter.conf
+webkit-theme=glorious
+
+sudo chown -R lightdm:lightdm /usr/share/lightdm-webkit/themes/glorious
+sudo chmod -R 755 /usr/share/lightdm-webkit/themes/glorious
+
+sudo systemctl enable lightdm.service
+sudo systemctl restart lightdm.service
+
+sudo pacman -Syu ttf-font-awesome ttf-nerd-fonts-symbols noto-fonts
